@@ -1,16 +1,32 @@
-# This is a sample Python script.
+import tkinter as tk
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# Настройка окна
+root = tk.Tk()
+root.title("Tic-Tac-Toe")
+root.iconbitmap("resources/icon/icon.ico")
+root.resizable(0, 0)
+# Формирование поля для кнопок
+buttons = []
+for i in range (9):
+    button = tk.Button(
+        root,
+        text="",
+        font=("Arial", 30),
+        width=5,
+        height=2,
+    )
+    button.grid(row=i//3, column=i%3)
+    buttons.append(button)
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+
+
+
+
+
+# Запуск главного цикла программы
+root.mainloop()
