@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 
 current_player = "X"
 buttons = []
@@ -46,6 +47,7 @@ def check_streak():
             buttons[a]["background"] = ("#55ff00") # красим фон в приятный зелёный цвет, приятный же, ну?
             buttons[b]["background"] = ("#55ff00")
             buttons[c]["background"] = ("#55ff00")
+            messagebox.showinfo('Game over', f'Player "{current_player}" won!')
             for i in range(9):
                 buttons[i]["state"]=("disabled") # и запрещаем дальнейшие изменения игрового поля, ибо game over 
 
