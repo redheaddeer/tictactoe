@@ -1,6 +1,7 @@
 import tkinter as tk
 
 current_player = "X"
+buttons = []
 
 # Настройка окна
 root = tk.Tk()
@@ -20,7 +21,7 @@ def on_click(index):
         check_streak()
 
 # Функция для очистки поля
-def clean_space():
+def clear_field():
     for i in range(9):
         buttons[i]["text"] = ""
         buttons[i]["background"] = ("#ffffff")
@@ -29,68 +30,25 @@ def clean_space():
     current_player = "X" # крестики всегда начинают первые, поэтому сбрасываем current_player также до "X"
 
 def check_streak():
-    streak = False # сначала мы не знаем, есть ли стрики на карте 
-    if (buttons[0]["text"] == buttons[1]["text"] == buttons[2]["text"]
-        and buttons[0]["text"] != ""): # если хотя бы одно поле не пустое, и при этом поля равны, значит они все равны X или O
-        streak = True
-        buttons[0]["background"] = ("#55ff00") # красим фон в приятный зелёный цвет, приятный же, ну?
-        buttons[1]["background"] = ("#55ff00")
-        buttons[2]["background"] = ("#55ff00")
-    else:
-        if (buttons[3]["text"] == buttons[4]["text"] == buttons[5]["text"]
-            and buttons[3]["text"] != ""):
-            streak = True
-            buttons[3]["background"] = ("#55ff00")
-            buttons[4]["background"] = ("#55ff00")
-            buttons[5]["background"] = ("#55ff00")
-        else:
-            if (buttons[6]["text"] == buttons[7]["text"] == buttons[8]["text"]
-                and buttons[6]["text"] != ""):
-                streak = True
-                buttons[6]["background"] = ("#55ff00")
-                buttons[7]["background"] = ("#55ff00")
-                buttons[8]["background"] = ("#55ff00")
-            else:
-                if (buttons[0]["text"] == buttons[3]["text"] == buttons[6]["text"]
-                    and buttons[0]["text"] != ""):
-                    streak = True
-                    buttons[0]["background"] = ("#55ff00")
-                    buttons[3]["background"] = ("#55ff00")
-                    buttons[6]["background"] = ("#55ff00")
-                else:
-                    if (buttons[1]["text"] == buttons[4]["text"] == buttons[7]["text"]
-                        and buttons[1]["text"] != ""):
-                        streak = True
-                        buttons[1]["background"] = ("#55ff00")
-                        buttons[4]["background"] = ("#55ff00")
-                        buttons[7]["background"] = ("#55ff00")
-                    else:
-                        if (buttons[2]["text"] == buttons[5]["text"] == buttons[8]["text"]
-                            and buttons[2]["text"] != ""):
-                            streak = True
-                            buttons[2]["background"] = ("#55ff00")
-                            buttons[5]["background"] = ("#55ff00")
-                            buttons[8]["background"] = ("#55ff00")
-                        else:
-                            if (buttons[0]["text"] == buttons[4]["text"] == buttons[8]["text"]
-                                and buttons[0]["text"] != ""):
-                                streak = True
-                                buttons[0]["background"] = ("#55ff00")
-                                buttons[4]["background"] = ("#55ff00")
-                                buttons[8]["background"] = ("#55ff00")
-                            else:
-                                if (buttons[2]["text"] == buttons[4]["text"] == buttons[6]["text"]
-                                    and buttons[2]["text"] != ""):
-                                    streak = True
-                                    buttons[2]["background"] = ("#55ff00")
-                                    buttons[4]["background"] = ("#55ff00")
-                                    buttons[6]["background"] = ("#55ff00")
-    if streak:
-        for i in range(9):
-            buttons[i]["state"]=("disabled") # и запрещаем дальнейшие изменения игрового поля, ибо game over 
+    streak_map = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ]
+    for streak in streak_map:
+        a, b, c = streak
+        if buttons[a]["text"] == buttons[b]["text"] == buttons[c]["text"] != "":
+            buttons[a]["background"] = ("#55ff00") # красим фон в приятный зелёный цвет, приятный же, ну?
+            buttons[b]["background"] = ("#55ff00")
+            buttons[c]["background"] = ("#55ff00")
+            for i in range(9):
+                buttons[i]["state"]=("disabled") # и запрещаем дальнейшие изменения игрового поля, ибо game over 
 
-# Формирование поля
-buttons = []
 for i in range (9):
     button = tk.Button(
         root,
@@ -108,13 +66,13 @@ for i in range (9):
 menu = []
 clearButton = tk.Button(
     root,
-    text="Очистить\nполе",
+    text="RESET",
     font=("Arial", 8),
     width=10,
     height=2,
-    command=lambda: clean_space()
+    command=lambda: clear_field()
 )
-clearButton.grid(row=3, column=1)
+clearButton.grid(row=4, column=1)
 menu.append(clearButton)
 
 # Запуск игрушки
