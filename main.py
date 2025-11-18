@@ -70,11 +70,12 @@ clearButton = tk.Button(
     root,
     text="RESET",
     font=("Arial", 8),
+    background=("#f0f0f0"),
     width=10,
     height=2,
     command=lambda: clear_field()
 )
-clearButton.grid(row=4, column=1)
+clearButton.grid(row=4, column=0, columnspan=3, sticky="we")
 menu.append(clearButton)
 
 # Запуск игрушки
