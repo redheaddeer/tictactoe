@@ -7,7 +7,7 @@ buttons = []
 # Настройка окна
 root = tk.Tk()
 root.title("Tic-Tac-Toe")
-root.iconbitmap("resources/icon/2.ico")
+root.iconbitmap("resources/icon/icon.ico")
 root.resizable(0, 0) # нам не надо, чтобы у окна была возможность расползаться по экрану
 
 # Функция для заполнения клеток поля 
@@ -15,11 +15,11 @@ def on_click(index):
     global current_player
     if buttons[index]["text"] == "": # мы можем изменить значение кнопки только если она пустая
         buttons[index]["text"] = current_player
+        check_streak()
         if current_player == "X":
             current_player = "O"
         else:
             current_player = "X"
-        check_streak()
 
 # Функция для очистки поля
 def clear_field():
